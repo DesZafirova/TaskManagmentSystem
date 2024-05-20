@@ -16,10 +16,10 @@ public class FeedbackImpl extends BaseTask implements Feedback {
     public static final String PROVIDED_INVALID = "Provided invalid %s.";
 
     private int rating;
-    private Status status = Status.NEW;
+    private Status status;
 
     protected FeedbackImpl(int id, String title, String description, int rating) {
-        super(id, title, description);
+        super(id, title, description, Status.NEW);
         this.rating = rating;
         addHistoryLog(CREATED_FEEDBACK.formatted(getID()));
     }
@@ -60,14 +60,8 @@ public class FeedbackImpl extends BaseTask implements Feedback {
 
     @Override
     public String toString() {
-        return """
-                %s
-                Status: %s
-                Rating: %d
-                """.formatted(
-                super.toString(),
-                this.status,
-                this.rating
-        );
+        return "ID#%d | Type: %s | Status: %s%nTitle: %s%n"
+                .formatted(getID(), getRealName(), getStatus(), getTitle());
+
     }
 }

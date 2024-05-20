@@ -57,7 +57,6 @@ public interface ApplicationRepository {
 
     List<Nameble> findByName(String name);
 
-    //TODO tobe continue......
     Member findMemberByName(String name);
 
     Team findTeamByName(String name);
@@ -66,5 +65,8 @@ public interface ApplicationRepository {
 
     Task createTask(String taskTpe, String... params);
 
+    List<Task> listAllTasks();
+    List<Task> listAllTasks(String filterParam, boolean strictSearch);
+    void printAllTasks(List<Task> tasks);
 
 }

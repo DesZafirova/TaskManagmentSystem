@@ -18,6 +18,8 @@ import utils.ParsingHelpers;
 import utils.ValidationHelpers;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -363,6 +365,48 @@ public class ApplicationRepositoryImpl implements ApplicationRepository {
         }
     }
 
+
+    @Override
+    public List<Task> listAllTasks() {
+        return new ArrayList<>(tasks.stream().sorted(Comparator.comparing(Task::getTitle)).toList());
+    }
+
+    private List<Task> listAllTasks(String filterParam) {
+        List<Task> filteredTasks = tasks
+                .stream()
+                .filter(t -> t.getTitle().equalsIgnoreCase(filterParam))
+                .toList();
+        filteredTasks = filteredTasks.stream().sorted(Comparator.comparing(Task::getTitle)).toList();
+        printAllTasks(filteredTasks);
+        return filteredTasks;
+    }
+
+    public List<Task> listAllTasks(String filterParam, boolean strictSearch) {
+        if (strictSearch) return listAllTasks(filterParam);
+        List<Task> filteredTasks = tasks
+                .stream()
+                .filter(t -> t.getTitle().toLowerCase()
+                        .contains(filterParam.toLowerCase()))
+                .toList();
+        filteredTasks = filteredTasks.stream().sorted(Comparator.comparing(Task::getTitle)).toList();
+        printAllTasks(filteredTasks);
+        return filteredTasks;
+    }
+
+    @Override
+    public void printAllTasks(List<Task> tasks) {
+        StringBuilder sb = new StringBuilder();
+        if(tasks.isEmpty()){
+            System.out.println("No Tasks found.");
+            return;
+        }
+        for (Task t : tasks) {
+            sb.append(t.toString());
+        }
+        System.out.println(sb);
+    }
+
+
     private static Feedback createFeedback(String[] params, int paramCount) {
         if (paramCount != 3) throw new InvalidParameterCountForTaskCreation("Feedback");
 
@@ -373,7 +417,8 @@ public class ApplicationRepositoryImpl implements ApplicationRepository {
     private Story createStory(String[] params, int paramCount) {
         //TODO get realName()
         return switch (paramCount) {
-            case 5 -> StoryImpl.createStory(++id, params[0], params[1], findMemberByName(params[2]), params[3], params[4]);
+            case 5 ->
+                    StoryImpl.createStory(++id, params[0], params[1], findMemberByName(params[2]), params[3], params[4]);
             case 4 -> StoryImpl.createStory(++id, params[0], params[1], params[2], params[3]);
             default -> throw new InvalidParameterCountForTaskCreation("Story");
         };

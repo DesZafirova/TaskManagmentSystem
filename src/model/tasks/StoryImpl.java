@@ -15,12 +15,12 @@ public class StoryImpl extends BaseTask implements Story {
     private static final String STORY_CREATED = "Story with ID:%d was created.";
 
     private StorySize size;
-    private Status status = Status.NOTDONE;
+    private Status status;
     private Priority priority;
     private Member assignee;
 
     protected StoryImpl(int id, String title, String description, Member assignee, String priority, String size) {
-        super(id, title, description);
+        super(id, title, description, Status.NOTDONE);
         this.setPriority(priority);
         this.setSize(size);
         this.assignee = assignee;
@@ -102,18 +102,8 @@ public class StoryImpl extends BaseTask implements Story {
 
     @Override
     public String toString() {
-        return """
-                %s
-                Assignee: %s
-                Status: %s
-                Size: %s
-                Priority: %s
-                """.formatted(
-                super.toString(),
-                this.assignee.getName(),
-                this.status,
-                this.size,
-                this.priority
-        );
+        return "ID#%d | Type: %s | Status: %s%nTitle: %s%n"
+                .formatted(getID(), getRealName(), getStatus(), getTitle());
+
     }
 }

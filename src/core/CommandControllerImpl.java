@@ -35,6 +35,7 @@ public class CommandControllerImpl implements CommandController {
             case ASSIGNTASK: return new AssignTaskToMember(applicationRepository);
             case UNAASIGNTASK: return new UnAssignTaskToMember(applicationRepository);
             case ADDTASKCOMMENT: return new AddTaskComment(applicationRepository);
+            case LISTALLTASKS: return new ListAllTasks(applicationRepository);
             default: throw new InvalidCommandTypeException("%s is not supported.".formatted(commandType));
 
 

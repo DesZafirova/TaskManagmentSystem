@@ -24,7 +24,10 @@ public class EngineImpl implements Engine {
     @Override
     public void run() {
         Scanner scanner = new Scanner(System.in);
-
+        String[] arr = {"some title", "some description", "4"};
+        app.createTeam("chavo1");
+        app.createNewBoardInTeam("chavo1", "chavo1");
+        app.createNewTaskInBoard("feedback", "chavo1", "chavo1", arr);
         while (true) {
             try {
                 String inputLine = scanner.nextLine();
@@ -51,7 +54,7 @@ public class EngineImpl implements Engine {
                 if (ex.getMessage() != null && !ex.getMessage().isEmpty()) {
                     System.out.println(ex.getMessage());
                 } else {
-                    System.out.println(ex.toString());
+                    System.out.println(ex);
                 }
             }
         }

@@ -22,7 +22,7 @@ public class BugImpl extends BaseTask implements Bug, Assignable {
     public static final String CREATED_MESSAGE = "Bug with id:%d was created.";
 
 
-    private Status status = Status.ACTIVE;
+    private Status status;
     private Priority priority;
     private BugSeverity severity;
     private final List<String> stepsToReproduce;
@@ -30,10 +30,11 @@ public class BugImpl extends BaseTask implements Bug, Assignable {
 
      protected BugImpl(int id, String title, String description, Member assignee,
                       String priority, String severity, List<String> stepsToReproduce) {
-        super(id, title, description);
+        super(id, title, description,  Status.ACTIVE);
         this.setPriority(priority);
         this.setSeverity(severity);
         this.assignee = assignee;
+
         this.stepsToReproduce = new ArrayList<>(stepsToReproduce);
         addHistoryLog(String.format(CREATED_MESSAGE, getID()));
     }
@@ -98,20 +99,8 @@ public class BugImpl extends BaseTask implements Bug, Assignable {
 
     @Override
     public String toString() {
-        return """
-                %s
-                Assignee: %s
-                Status: %s
-                Severity: %s
-                Priority: %s
-                Steps: %s
-                """.formatted(
-                super.toString(),
-                this.assignee.getName(),
-                this.status,
-                this.severity,
-                this.priority,
-                this.stepsToReproduce.toString());
+       return "ID#%d | Type: %s | Status: %s%nTitle: %s%n"
+                .formatted(getID(), getRealName(), getStatus(), getTitle());
 
     }
 

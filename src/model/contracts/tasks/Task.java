@@ -4,10 +4,10 @@ import model.contracts.utils.Commentable;
 import model.contracts.utils.Historical;
 import model.contracts.utils.Identifiable;
 import model.enums.Status;
+import utils.contracts.PrintableName;
 
 
-
-public interface Task extends Identifiable, Commentable, Historical {
+public interface Task extends Identifiable, Commentable, Historical, PrintableName {
 
     String getTitle();
 

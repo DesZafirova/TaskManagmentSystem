@@ -31,10 +31,11 @@ public abstract class BaseTask implements Task, PrintableName {
     protected List<Comment> comments;
     private final ActivityHistory history;
 
-    public BaseTask(int id, String title, String description) {
+    public BaseTask(int id, String title, String description, Status status) {
         this.id = id;
         this.title = title;
         this.description = description;
+        this.status = status;
         this.comments = new ArrayList<>();
         this.history = new ActivityHistory();
 
@@ -78,7 +79,7 @@ public abstract class BaseTask implements Task, PrintableName {
 
     @Override
     public Status getStatus() {
-        return status;
+        return this.status;
     }
 
     @Override
@@ -128,16 +129,5 @@ public abstract class BaseTask implements Task, PrintableName {
     }
 
     @Override
-    public String toString() {
-
-        return """
-                Task ID: %d
-                Task Type: %s
-                Title: %s
-                Description: %s""".formatted(this.id,
-                getRealName().toUpperCase(),
-                this.title,
-                this.description
-        );
-    }
+    public abstract String toString();
 }
