@@ -13,6 +13,6 @@ public class ShowAllTeams extends BaseCommand {
 
     @Override
     public void execute() {
-
+        app.showAllTeams();
     }
 }

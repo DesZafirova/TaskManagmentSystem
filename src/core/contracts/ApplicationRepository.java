@@ -20,12 +20,13 @@ public interface ApplicationRepository {
     String showMemberActivities(String name);
     Team createTeam(String name);
     String showAllTeams();
+    String showTeamBoards(String name);
     String showTeamActivities(String name);
     String addMemberToTeam(String memberName, String teamName);
     String showAllTeamMembers(String name);
     Board createNewBoardInTeam(String boardName, String teamName);
     String showAllBoards();
-    String showBoardActivities(Board board);
+    public String showBoardActivities(String teamName, String boardName);
 
     Task createNewTaskInBoard(String taskType, String boardName, String teamName, String[] params);
 

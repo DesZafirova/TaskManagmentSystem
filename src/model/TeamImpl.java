@@ -9,6 +9,7 @@ import utils.contracts.PrintableName;
 import utils.ValidationHelpers;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -111,7 +112,12 @@ public class TeamImpl implements Team, Nameble, PrintableName {
 
     @Override
     public String showAllTeamMembers() {
-        String result = """
+        String result = "";
+        if (members.isEmpty()) {
+            result = "No members in team %s.".formatted(this.name);
+            return result;
+        }
+        result = """
                 Team: %s
                 Team Members:
                 %s
@@ -121,6 +127,16 @@ public class TeamImpl implements Team, Nameble, PrintableName {
         return result;
     }
 
+    @Override
+    public String showBoards() {
+        StringBuilder sb = new StringBuilder();
+        if(!boards.isEmpty()){
+
+            boards.forEach(b -> sb.append("| ").append(b.getName()).append(" | "));
+            return sb.toString();
+        }
+        return "No Boards are created in team %s.%n".formatted(this.name);
+    }
 
     @Override
     public String getName() {
@@ -151,23 +167,6 @@ public class TeamImpl implements Team, Nameble, PrintableName {
                 members.stream().map(Member::getName).collect(Collectors.joining(", ")),
                 boards.stream().map(Board::getName).collect(Collectors.joining(", "))
         );
-
-    }
-
-    public static void main(String[] args) {
-        Team team = new TeamImpl("NewTeam");
-        Member member = new MemberImpl("Ivan333");
-        Member member1 = new MemberImpl("Ivan121");
-        Member member2 = new MemberImpl("Ivan224");
-
-        team.addBoard("Board");
-        team.addBoard("Board2");
-        team.addMember(member);
-        team.addMember(member1);
-        team.addMember(member2);
-        System.out.println(team);
-        team.showAllActivities();
-        team.showAllTeamMembers();
 
     }
 

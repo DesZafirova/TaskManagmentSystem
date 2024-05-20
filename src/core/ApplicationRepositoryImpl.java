@@ -39,6 +39,9 @@ public class ApplicationRepositoryImpl implements ApplicationRepository {
     public static final String ASSIGNEE_NOT_IN_TEAM_AS_BOARD = "Assignee %s should be in the same team as board %s.%n";
     public static final String TASK_DOES_NOT_EXIST = "Task with id: %d does not exist.";
     public static final String INVALID_FIELD_ERROR = "No field with name %s for tasks of type %s.%n";
+    public static final String NO_MEMBERS_IN_DATABASE = "No members currently register in the Database.";
+    public static final String NO_BOARDS_IN_DB = "No boards registered in Database.";
+    public static final String NO_TEAMS_IN_DB = "No Teams registered in Database.";
     private static int id = 0;
     private List<Team> teams;
     private List<Member> members;
@@ -75,9 +78,13 @@ public class ApplicationRepositoryImpl implements ApplicationRepository {
 
     @Override
     public String showAllMembers() {
-        String memberNames = members.stream().map(Member::getName).collect(Collectors.joining(", "));
-        System.out.printf("Members:%n%s%n", memberNames);
-        return String.format("Members:%n%s%n", memberNames);
+        if (!members.isEmpty()) {
+            String memberNames = members.stream().map(Member::getName).collect(Collectors.joining(", "));
+            System.out.printf("Members:%n%s%n", memberNames);
+            return String.format("Members:%n%s%n", memberNames);
+        }
+        System.out.println(NO_MEMBERS_IN_DATABASE);
+        return NO_MEMBERS_IN_DATABASE;
     }
 
     @Override
@@ -99,12 +106,24 @@ public class ApplicationRepositoryImpl implements ApplicationRepository {
 
     @Override
     public String showAllTeams() {
-        String teamNames = teams.stream().map(Nameble::getName).collect(Collectors.joining(", "));
-        //todo
-        System.out.printf("Teams:%n%s%n", teamNames);
-        return String.format("Teams:%n%s%n", teamNames);
+        if (!teams.isEmpty()) {
+            String teamNames = teams.stream().map(Nameble::getName).collect(Collectors.joining(", "));
 
+            System.out.printf("Teams:%n%s%n", teamNames);
+            return String.format("Teams:%n%s%n", teamNames);
+        }
+        System.out.println(NO_TEAMS_IN_DB);
+        return NO_TEAMS_IN_DB;
     }
+
+    @Override
+    public String showTeamBoards(String name) {
+        Team team = findTeamByName(name);
+        String result = team.showBoards();
+        System.out.println(result);
+        return result;
+    }
+
 
     @Override
     public String showTeamActivities(String name) {
@@ -127,7 +146,7 @@ public class ApplicationRepositoryImpl implements ApplicationRepository {
     public String showAllTeamMembers(String name) {
         Team team = findTeamByName(name);
         return team.showAllTeamMembers();
-        //todo
+        //// TODO: 20.5.2024 г.
     }
 
     @Override
@@ -141,14 +160,20 @@ public class ApplicationRepositoryImpl implements ApplicationRepository {
 
     @Override
     public String showAllBoards() {
-        String boardNames = boards.stream().map(Board::getNameWithTeam).collect(Collectors.joining(""));
-        //todo
-        System.out.printf("Boards:%n%s%n", boardNames);
-        return String.format("Boards:%n%s%n", boardNames);
+        if (!boards.isEmpty()) {
+            String boardNames = boards.stream().map(Board::getNameWithTeam).collect(Collectors.joining(""));
+            //todo
+            System.out.printf("Boards:%n%s%n", boardNames);
+            return String.format("Boards:%n%s%n", boardNames);
+        }
+        System.out.println(NO_BOARDS_IN_DB);
+        return NO_BOARDS_IN_DB;
     }
 
     @Override
-    public String showBoardActivities(Board board) {
+    public String showBoardActivities(String teamName, String boardName) {
+        Team team = findTeamByName(teamName);
+        Board board = team.getBoardByName(boardName);
         return board.displayAllTasks();
     }
 
@@ -279,7 +304,7 @@ public class ApplicationRepositoryImpl implements ApplicationRepository {
 
     @Override
     public <T extends AssignableTask> String unAssignTaskToMember(T task) {
-        if(task.hasAssignee()){
+        if (task.hasAssignee()) {
             Member member = task.getAssignee();
             member.removeTask(task);
             task.setAssignee(null);

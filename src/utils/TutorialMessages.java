@@ -44,8 +44,14 @@ public class TutorialMessages {
             "Task id / Field name(Status{NotDone, InProgress, Done}, Priority{High, Medium or Low} or Size{Large, Medium or Small}) / New Value ", RESET);
     public static final String CHANGE_FEEDBACK_DETAILS_HELP_MSG = String.format("In order to change details of Feedback, you need to provide the following parameters separated by / %n%s%s%s%n", colorCode,
             "Task id / Field name(Status{New, Scheduled, Unscheduled or Done} or Rating(From 1 to 10)) / New Value ", RESET);
-    public static final String ASSIGN_TASK_TO_MEMBER_HELP_MSG = String.format("In order to assign a task to a member, you need provide the following parameters by / %n%s%s%s%n", colorCode,
+    public static final String ASSIGN_TASK_TO_MEMBER_HELP_MSG = String.format("In order to assign a task to a member, you need to provide the following parameters by / %n%s%s%s%n", colorCode,
             "Task id / Existing Member Name", RESET);
-    public static final String UN_ASSIGN_TASK_HELP_MSG = String.format("In order to remove an assignee from a task, you need provide the following parameters by / %n%s%s%s%n", colorCode,
+    public static final String UN_ASSIGN_TASK_HELP_MSG = String.format("In order to remove an assignee from a task, you need to provide the following parameters by / %n%s%s%s%n", colorCode,
             "Task id ", RESET);
+    public static final String SHOW_TEAM_INFO_HELP_MSG = String.format("In order to show all requested information for team, you need to provide the following parameters:  %n%s%s%s%n", colorCode,
+            "Existing Team Name", RESET);
+    public static final String SHOW_BRD_ACTIVITIES_HELP_MSG = String.format("In order to show all board activities, you need to provide the following parameters separated by / %n%s%s%s%n", colorCode,
+            "Existing Team Name /  Board Name", RESET);
+    public static final String SHOW_MEMBER_ACTIVITIES_HELP_MSG =String.format("In order to show member activities, you need to provide the following parameters ", colorCode,
+            "Existing Member Name", RESET);
 }

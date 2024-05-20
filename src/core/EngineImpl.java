@@ -4,11 +4,9 @@ import commands.contracts.Command;
 import core.contracts.ApplicationRepository;
 import core.contracts.CommandController;
 import core.contracts.Engine;
-import utils.FormattingHelpers;
 
 import java.util.Scanner;
 
-import static utils.FormattingHelpers.clear;
 
 public class EngineImpl implements Engine {
     private static final String EMPTY_LINE_MSG = "Command line is empty, care to try again?";

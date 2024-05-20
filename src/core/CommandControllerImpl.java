@@ -26,7 +26,7 @@ public class CommandControllerImpl implements CommandController {
             case ADDMEMBERTOTEAM: return new AddMemberToTeam(applicationRepository);
             case SHOWTEAMMEMBERS: return new ShowAllTeamMembers(applicationRepository);
             case CREATEBOARDINTEAM: return new CreateBoardInTeam(applicationRepository);
-            case SHOWALLTEAMBOARDS: return new ShowAllTeamBoards(applicationRepository);
+            case SHOWALLTEAMBOARDS: return new ShowAllBoards(applicationRepository);
             case SHOWBOARDACTIVITY: return new ShowBoardActivities(applicationRepository);
             case CREATETASKINBOARD: return new CreateTaskInBoard(applicationRepository);
             case CHANGEBUGDETAILS: return new ChangeBugDetails(applicationRepository);

@@ -19,11 +19,16 @@ public class ActivityHistory {
 
     public String listHistory(){
         StringBuilder sb = new StringBuilder();
-        for (ActivityLog log : history) {
-            sb.append(log.viewInfo());
-            sb.append(System.lineSeparator());
+        if(!history.isEmpty()){
+            for (ActivityLog log : history) {
+                sb.append(log.viewInfo());
+                sb.append(System.lineSeparator());
+            }
+            System.out.println(sb);
+            return sb.toString();
         }
-        return sb.toString();
+        return "No activities recorded.";
+
     }
 
     public List<ActivityLog> getHistory() {

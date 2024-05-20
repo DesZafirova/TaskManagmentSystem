@@ -16,5 +16,6 @@ public interface Team extends Nameble {
     void removeBoard(Board board);
     String showAllActivities();
     String showAllTeamMembers();
+    String showBoards();
 
 }

@@ -3,18 +3,15 @@ package commands.listingCommans;
 import commands.BaseCommand;
 import core.contracts.ApplicationRepository;
 
-import java.util.List;
-import java.util.Scanner;
+public class ShowAllBoards extends BaseCommand {
 
-public class ShowAllMembers extends BaseCommand {
-    public ShowAllMembers(ApplicationRepository app) {
+    public ShowAllBoards(ApplicationRepository app) {
         super(app);
     }
 
 
     @Override
     public void execute() {
-        app.showAllMembers();
+        app.showAllBoards();
     }
-
 }
