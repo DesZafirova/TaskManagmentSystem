@@ -371,9 +371,9 @@ public class ApplicationRepositoryImpl implements ApplicationRepository {
     }
 
     private Story createStory(String[] params, int paramCount) {
+        //TODO get realName()
         return switch (paramCount) {
-            case 5 ->
-                    StoryImpl.createStory(++id, params[0], params[1], findMemberByName(params[2]), params[3], params[4]);
+            case 5 -> StoryImpl.createStory(++id, params[0], params[1], findMemberByName(params[2]), params[3], params[4]);
             case 4 -> StoryImpl.createStory(++id, params[0], params[1], params[2], params[3]);
             default -> throw new InvalidParameterCountForTaskCreation("Story");
         };
