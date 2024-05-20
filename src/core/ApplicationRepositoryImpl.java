@@ -364,9 +364,7 @@ public class ApplicationRepositoryImpl implements ApplicationRepository {
     }
 
     private static Feedback createFeedback(String[] params, int paramCount) {
-        if (paramCount != 3) throw new InvalidParameterCountForTaskCreation(
-                "Provided parameters count is invalid for Feedback.%nPlease provide: Title, Description, Rating.%n"
-                            .formatted());
+        if (paramCount != 3) throw new InvalidParameterCountForTaskCreation("Feedback");
 
         return FeedbackImpl.createFeedback(
                 ++id, params[0], params[1], ParsingHelpers.tryParseInt(params[2]));
@@ -377,8 +375,7 @@ public class ApplicationRepositoryImpl implements ApplicationRepository {
             case 5 ->
                     StoryImpl.createStory(++id, params[0], params[1], findMemberByName(params[2]), params[3], params[4]);
             case 4 -> StoryImpl.createStory(++id, params[0], params[1], params[2], params[3]);
-            default -> throw new InvalidParameterCountForTaskCreation(
-                    "Provided parameters count is invalid for Story.%nPlease provide: Title, Description, Assignee(optional), Priority, Size.%n".formatted());
+            default -> throw new InvalidParameterCountForTaskCreation("Story");
         };
     }
 
@@ -388,8 +385,7 @@ public class ApplicationRepositoryImpl implements ApplicationRepository {
                     ++id, params[0], params[1], findMemberByName(params[2]), params[3], params[4], params[5]);
             case 5 -> BugImpl.createBug(
                     ++id, params[0], params[1], params[2], params[3], params[4]);
-            default -> throw new InvalidParameterCountForTaskCreation(
-                    "Provided parameters count is invalid for Bug.%nPlease provide: Title, Description, Assignee(optional), Priority, Severity, Steps to Reproduce.%n".formatted());
+            default -> throw new InvalidParameterCountForTaskCreation("Bug");
         };
     }
 
