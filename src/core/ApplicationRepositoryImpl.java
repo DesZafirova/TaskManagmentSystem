@@ -364,11 +364,10 @@ public class ApplicationRepositoryImpl implements ApplicationRepository {
     }
 
     private static Feedback createFeedback(String[] params, int paramCount) {
-        if (paramCount != 3) {
-            throw new InvalidParameterCountForTaskCreation(
-                    "Provided parameters count is invalid for Feedback.%nPlease provide: Title, Description, Rating.%n"
+        if (paramCount != 3) throw new InvalidParameterCountForTaskCreation(
+                "Provided parameters count is invalid for Feedback.%nPlease provide: Title, Description, Rating.%n"
                             .formatted());
-        }
+
         return FeedbackImpl.createFeedback(
                 ++id, params[0], params[1], ParsingHelpers.tryParseInt(params[2]));
     }
