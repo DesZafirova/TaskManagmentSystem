@@ -14,7 +14,7 @@ public class EngineImpl implements Engine {
     public static final Scanner sc = new Scanner(System.in);
     private final ApplicationRepository app;
     private final CommandController commandController;
-    public static boolean tutorialMode = false;
+    public static boolean tutorialMode = true;
 
     public EngineImpl() {
         this.commandController = new CommandControllerImpl();
@@ -45,12 +45,13 @@ public class EngineImpl implements Engine {
                     continue;
                     //// TODO: 18.5.2024 г.
                 }
+
                 processCommand(inputLine);
             } catch (Exception ex) {
                 if (ex.getMessage() != null && !ex.getMessage().isEmpty()) {
                     System.out.println(ex.getMessage());
                 } else {
-                    System.out.println(ex);
+                    System.out.println(ex.toString());
                 }
             }
         }
