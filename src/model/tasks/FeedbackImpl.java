@@ -44,7 +44,7 @@ public class FeedbackImpl extends BaseTask implements Feedback {
 
     @Override
     public void setStatus(String status) {
-       this.status = setEnumValue(Status.getFeedbackStatusList(), this.status, status, "Status", PROVIDED_INVALID);
+        this.status = setEnumValue(Status.getFeedbackStatusList(), this.status, status, "Status", PROVIDED_INVALID);
     }
 
     @Override
@@ -59,8 +59,8 @@ public class FeedbackImpl extends BaseTask implements Feedback {
 
     @Override
     public String toString() {
-        return "ID#%d | Type: %s | Status: %s%nTitle: %s%n"
-                .formatted(getID(), getRealName(), getStatus(), getTitle());
+        return "ID#%d | Type: %s | Status: %s | Rating: %d %nTitle: %s%n"
+                .formatted(getID(), getRealName(), getStatus(), getRating(), getTitle());
 
     }
 }

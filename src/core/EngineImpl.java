@@ -29,16 +29,19 @@ public class EngineImpl implements Engine {
         Scanner scanner = new Scanner(System.in);
         String[] arr = {"some title", "some description", "4"};
         String[] arr1 = {"some title chavo", "some description", "high", "small"};
-        String[] arr2 = {"something title chavo", "some description", "medium", "major", "step, step step"};
+        String[] arr2 = {"something title chavo", "some description","Pesho", "medium", "major", "step, step step"};
         String[] arr3 = {"blabla title chavo", "some description","Vankata", "high", "minor", "step, step step"};
         app.createTeam("chavo1");
         app.createMember("Vankata");
+        app.createMember("Pesho");
         app.addMemberToTeam("Vankata", "Chavo1");
+        app.addMemberToTeam("Pesho", "Chavo1");
 
         app.createNewBoardInTeam("chavo1", "chavo1");
         app.createNewTaskInBoard("feedback", "chavo1", "chavo1", arr);
         app.createNewTaskInBoard("story", "chavo1", "chavo1", arr1);
         app.createNewTaskInBoard("bug", "chavo1", "chavo1", arr2);
+        app.createNewTaskInBoard("bug", "chavo1", "chavo1", arr3);
         app.createNewTaskInBoard("bug", "chavo1", "chavo1", arr3);
         app.listAllTasks();
         while (true) {

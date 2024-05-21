@@ -4,9 +4,7 @@ import model.contracts.Board;
 import model.contracts.Comment;
 import model.contracts.Member;
 import model.contracts.Team;
-import model.contracts.tasks.AssignableTask;
-import model.contracts.tasks.Bug;
-import model.contracts.tasks.Task;
+import model.contracts.tasks.*;
 import model.contracts.utils.Assignable;
 import model.contracts.utils.Identifiable;
 import model.contracts.utils.Nameble;
@@ -69,6 +67,10 @@ public interface ApplicationRepository {
     List<Task> listAllTasks();
     List<Task> listAllTasks(String filterParam, boolean strictSearch);
     void printAllTasks(List<Task> tasks);
-    <T extends AssignableTask> List<AssignableTask> listAllBugs(String status, String assigneeName);
+    List<Bug> listAllBugs(String status, String assigneeName);
 
+    List<Story> listAllStories(String status, String assigneeName);
+    List<Feedback> listAllFeedbacks(String status);
+
+    List<Task> listAllAssignableTasks(String status, String assigneeName);
 }

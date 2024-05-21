@@ -98,7 +98,6 @@ public class BugImpl extends BaseTask implements Bug, Assignable {
     @Override
     public String toString() {
         String assignee = (hasAssignee()) ? getAssignee().getName() : "Unassigned";
-        ;
         return "ID#%d | Type: %s | Status: %s | Priority: %s | Severity: %s | Assignee: %s%nTitle: %s%n%n"
                 .formatted(getID(), getRealName(), getStatus(), getPriority(), getSeverity(), assignee, getTitle());
     }

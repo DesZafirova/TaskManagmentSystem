@@ -44,6 +44,8 @@ public class CommandControllerImpl implements CommandController {
             case LISTALLTASKS: return new ListAllTasks(applicationRepository);
             case LISTBUGS: return new ListBugs(applicationRepository);
             case LISTSTORIES: return new ListStories(applicationRepository);
+            case LISTFEEDBACKS: return new ListFeedbacks(applicationRepository);
+            case LISTTASKSWITHASSIGNEE: return new ListTasksWithAssignee(applicationRepository);
             default: throw new InvalidCommandTypeException("%s is not supported.".formatted(commandType));
 
 

@@ -28,7 +28,8 @@ public enum CommandType {
     LISTALLTASKS,
     LISTBUGS,
     LISTSTORIES,
-    LISTFEEDBACKS;
+    LISTFEEDBACKS,
+    LISTTASKSWITHASSIGNEE;
 
 
     public static void listCommands() {
