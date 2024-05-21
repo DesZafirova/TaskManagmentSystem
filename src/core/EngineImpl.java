@@ -25,7 +25,7 @@ public class EngineImpl implements Engine {
 
     @Override
     public void run() {
-       // welcome();
+        welcome();
         Scanner scanner = new Scanner(System.in);
         String[] arr = {"some title", "some description", "4"};
         String[] arr1 = {"some title chavo", "some description", "high", "small"};

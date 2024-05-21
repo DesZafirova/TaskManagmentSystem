@@ -7,16 +7,16 @@ import static commands.enums.CommandType.listCommands;
 import static core.EngineImpl.sc;
 
 public class FormattingHelpers {
-    private static final String[] WelcomeMessage = {
-            "Hello and welcome to our Task Management App.",
-            "A few things before you get started:",
-            " -you can manually turn off the instructions by using the \"tutorial\" command",
-            " -all commands provide instruction on required information when executed.",
-            " -this app is not case sensitive.",
-            " -you can list all possible commands with the \"lc\" command.",
-            " -you can change the color theme of the assisting messages with the \"setcolor\" command",
-            "Enjoy!"
-    };
+private static final String[] WelcomeMessage = {
+    "Hello and welcome to our Task Management App.",
+    "A few things before you get started:",
+    " - You can manually turn off the instructions by using the \"tutorial\" command.",
+    " - All commands provide instructions on required information when executed.",
+    " - This app is not case sensitive.",
+    " - You can list all possible commands with the \"lc\" command.",
+    " - You can change the color theme of the assisting messages with the \"setcolor\" command.",
+    "Enjoy!"
+};
     public static final String RESET = "\033[0m";
 
     public static final String RED = "\033[31m";
@@ -91,7 +91,7 @@ public class FormattingHelpers {
         for (String s : WelcomeMessage) {
             System.out.println(s);
             try {
-                Thread.sleep(700);
+                Thread.sleep(700); // 700
             } catch (InterruptedException e) {
                 Thread.currentThread().interrupt();
 

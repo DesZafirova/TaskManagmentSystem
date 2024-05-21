@@ -32,7 +32,7 @@ public enum CommandType {
         for (CommandType type : CommandType.values()) {
             System.out.printf("%s%s%s%n".formatted(colorCode,type.name(), RESET));
              try {
-                Thread.sleep(280);
+                Thread.sleep(250);//280
             } catch (InterruptedException e) {
                 Thread.currentThread().interrupt();
 
