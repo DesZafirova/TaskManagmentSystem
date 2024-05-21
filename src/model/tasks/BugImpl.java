@@ -21,8 +21,6 @@ public class BugImpl extends BaseTask implements Bug, Assignable {
     public static final String PROVIDED_INVALID = "Provided invalid %s.";
     public static final String CREATED_MESSAGE = "Bug with id:%d was created.";
 
-
-    private Status status;
     private Priority priority;
     private BugSeverity severity;
     private final List<String> stepsToReproduce;

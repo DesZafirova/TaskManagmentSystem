@@ -16,7 +16,6 @@ public class FeedbackImpl extends BaseTask implements Feedback {
     public static final String PROVIDED_INVALID = "Provided invalid %s.";
 
     private int rating;
-    private Status status;
 
     protected FeedbackImpl(int id, String title, String description, int rating) {
         super(id, title, description, Status.NEW);

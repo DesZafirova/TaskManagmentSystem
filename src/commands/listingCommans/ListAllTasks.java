@@ -23,23 +23,21 @@ public class ListAllTasks extends BaseCommand {
     public void execute() {
         System.out.println(LIST_ALL_TASKS_HELP_MSG);
         String answer = EngineImpl.sc.nextLine();
-        if (!answer.equalsIgnoreCase("n")) {
+        if (answer.equalsIgnoreCase("Y")) {
 
             System.out.println(LIST_FILTER_TASK_HELP_MSG);
-            List<String> answers = Arrays.stream(EngineImpl.sc.nextLine().split(" / ")).toList();
-            ValidationHelpers.validateArgumentsCount(answers, VALID_PARAM_COUNT);
-            String queryParam = answers.get(0);
+            List<String> params = extractParameters();
+            ValidationHelpers.validateArgumentsCount(params, VALID_PARAM_COUNT);
+            String queryParam = params.get(0);
             boolean strictSearch = false;
-            if (answers.size() > 1) {
-                if (answers.get(1).equalsIgnoreCase("Y")) {
+            if (params.size() > 1) {
+                if (params.get(1).equalsIgnoreCase("Y")) {
                     strictSearch = true;
                 }
+            }
                 app.listAllTasks(queryParam, strictSearch);
                 return;
-            }
-
-
         }
-        app.printAllTasks(app.listAllTasks());
+        app.listAllTasks();
     }
 }

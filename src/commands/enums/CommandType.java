@@ -1,7 +1,12 @@
 package commands.enums;
 
-public enum CommandType {
+import static utils.FormattingHelpers.RESET;
+import static utils.FormattingHelpers.colorCode;
 
+public enum CommandType {
+    LC,
+    TUTORIAL,
+    SETCOLOR,
     CREATEMEMBER,
     SHOWALLMEMBERS,
     SHOWMEMBERACTIVITY,
@@ -21,5 +26,19 @@ public enum CommandType {
     UNAASIGNTASK,
     ADDTASKCOMMENT,
     LISTALLTASKS;
+
+
+    public static void listCommands() {
+        for (CommandType type : CommandType.values()) {
+            System.out.printf("%s%s%s%n".formatted(colorCode,type.name(), RESET));
+             try {
+                Thread.sleep(280);
+            } catch (InterruptedException e) {
+                Thread.currentThread().interrupt();
+
+            }
+        }
+
+    }
 
 }

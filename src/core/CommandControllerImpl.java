@@ -1,5 +1,8 @@
 package core;
 
+import commands.EngineCommands.ChangeColorCommand;
+import commands.EngineCommands.ListCommandsCommand;
+import commands.EngineCommands.ToggleTutorialCommand;
 import commands.contracts.Command;
 import commands.createCommands.*;
 import commands.enums.CommandType;
@@ -17,6 +20,9 @@ public class CommandControllerImpl implements CommandController {
     public Command createCommandFromCommandName(String commandTypeAsString, ApplicationRepository applicationRepository) {
         CommandType commandType = ParsingHelpers.tryParseEnum(commandTypeAsString, CommandType.class);
         switch (commandType){
+            case LC: return new ListCommandsCommand(applicationRepository);
+            case SETCOLOR: return new ChangeColorCommand(applicationRepository);
+            case TUTORIAL: return new ToggleTutorialCommand(applicationRepository);
             case CREATEMEMBER: return new CreateMember(applicationRepository);
             case SHOWALLMEMBERS: return new ShowAllMembers(applicationRepository);
             case SHOWMEMBERACTIVITY: return new ShowMemberActivity(applicationRepository);

@@ -52,10 +52,10 @@ public class TutorialMessages {
             "Existing Team Name", RESET);
     public static final String SHOW_BRD_ACTIVITIES_HELP_MSG = String.format("In order to show all board activities, you need to provide the following parameters separated by / %n%s%s%s%n", colorCode,
             "Existing Team Name /  Board Name", RESET);
-    public static final String SHOW_MEMBER_ACTIVITIES_HELP_MSG =String.format("In order to show member activities, you need to provide the following parameters ", colorCode,
+    public static final String SHOW_MEMBER_ACTIVITIES_HELP_MSG =String.format("In order to show member activities, you need to provide the following parameters %n%s%s%s%n", colorCode,
             "Existing Member Name", RESET);
 
-    public static final String LIST_ALL_TASKS_HELP_MSG = String.format("Would you like to add searching parameters for the task titles? [Y / n] %n");
+    public static final String LIST_ALL_TASKS_HELP_MSG = String.format("Would you like to add searching parameters for the task titles? [y / N] %n");
     public static final String LIST_FILTER_TASK_HELP_MSG = String.format("Please provide the following parameters separated by / %n%s%s%s%n", colorCode,
-            "Filter parameter / Strict search [y / N]", RESET);
+            "Filter parameter / Strict search [y / N] (optional)", RESET);
 }

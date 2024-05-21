@@ -7,6 +7,8 @@ import core.contracts.Engine;
 
 import java.util.Scanner;
 
+import static utils.FormattingHelpers.welcome;
+
 
 public class EngineImpl implements Engine {
     private static final String EMPTY_LINE_MSG = "Command line is empty, care to try again?";
@@ -23,11 +25,15 @@ public class EngineImpl implements Engine {
 
     @Override
     public void run() {
+       // welcome();
         Scanner scanner = new Scanner(System.in);
         String[] arr = {"some title", "some description", "4"};
+        String[] arr1 = {"some title chavo", "some description", "high", "small"};
         app.createTeam("chavo1");
         app.createNewBoardInTeam("chavo1", "chavo1");
         app.createNewTaskInBoard("feedback", "chavo1", "chavo1", arr);
+        app.createNewTaskInBoard("story", "chavo1", "chavo1", arr1);
+        app.listAllTasks();
         while (true) {
             try {
                 String inputLine = scanner.nextLine();
@@ -37,18 +43,7 @@ public class EngineImpl implements Engine {
                 } else if (inputLine.equalsIgnoreCase(EXIT_COMMAND)) {
                     System.out.printf("Thanks for using our Tool.%nGoodbye!%n");
                     break;
-                } else if (inputLine.equalsIgnoreCase("Tutorial")) {
-                    tutorialMode = !tutorialMode;
-                    if (tutorialMode) {
-                        System.out.println("Tutorial mode is ON.");
-                    } else {
-                        System.out.println("Tutorial mode is OFF.");
-                    }
-
-                    continue;
-                    //// TODO: 18.5.2024 г.
                 }
-
                 processCommand(inputLine);
             } catch (Exception ex) {
                 if (ex.getMessage() != null && !ex.getMessage().isEmpty()) {

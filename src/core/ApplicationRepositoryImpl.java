@@ -368,7 +368,9 @@ public class ApplicationRepositoryImpl implements ApplicationRepository {
 
     @Override
     public List<Task> listAllTasks() {
-        return new ArrayList<>(tasks.stream().sorted(Comparator.comparing(Task::getTitle)).toList());
+        ArrayList<Task> task = new ArrayList<>(tasks.stream().sorted(Comparator.comparing(Task::getTitle)).toList());
+         printAllTasks(task);
+        return task;
     }
 
     private List<Task> listAllTasks(String filterParam) {

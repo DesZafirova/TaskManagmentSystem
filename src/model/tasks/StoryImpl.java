@@ -15,7 +15,6 @@ public class StoryImpl extends BaseTask implements Story {
     private static final String STORY_CREATED = "Story with ID:%d was created.";
 
     private StorySize size;
-    private Status status;
     private Priority priority;
     private Member assignee;
 
