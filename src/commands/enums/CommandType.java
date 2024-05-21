@@ -25,7 +25,8 @@ public enum CommandType {
     ASSIGNTASK,
     UNAASIGNTASK,
     ADDTASKCOMMENT,
-    LISTALLTASKS;
+    LISTALLTASKS,
+    ;
 
 
     public static void listCommands() {
