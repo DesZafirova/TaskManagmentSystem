@@ -26,9 +26,9 @@ public class BugImpl extends BaseTask implements Bug, Assignable {
     private final List<String> stepsToReproduce;
     private Member assignee;
 
-     protected BugImpl(int id, String title, String description, Member assignee,
+    protected BugImpl(int id, String title, String description, Member assignee,
                       String priority, String severity, List<String> stepsToReproduce) {
-        super(id, title, description,  Status.ACTIVE);
+        super(id, title, description, Status.ACTIVE);
         this.setPriority(priority);
         this.setSeverity(severity);
         this.assignee = assignee;
@@ -97,9 +97,10 @@ public class BugImpl extends BaseTask implements Bug, Assignable {
 
     @Override
     public String toString() {
-       return "ID#%d | Type: %s | Status: %s%nTitle: %s%n"
-                .formatted(getID(), getRealName(), getStatus(), getTitle());
-
+        String assignee = (hasAssignee()) ? getAssignee().getName() : "Unassigned";
+        ;
+        return "ID#%d | Type: %s | Status: %s | Priority: %s | Severity: %s | Assignee: %s%nTitle: %s%n%n"
+                .formatted(getID(), getRealName(), getStatus(), getPriority(), getSeverity(), assignee, getTitle());
     }
 
     @Override

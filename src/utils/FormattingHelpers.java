@@ -1,7 +1,11 @@
 package utils;
 
 
+import model.contracts.tasks.Task;
+import model.contracts.utils.Assignable;
+
 import java.math.BigDecimal;
+import java.util.List;
 
 import static commands.enums.CommandType.listCommands;
 import static core.EngineImpl.sc;
@@ -100,5 +104,20 @@ private static final String[] WelcomeMessage = {
         }
         System.out.println();
             listCommands();
+    }
+
+    public static <T extends Task> String printListTasks(List<T> tasks){
+        StringBuilder sb = new StringBuilder();
+        if(tasks.isEmpty()) {
+            sb.append("No search results found.");
+            System.out.println(sb);
+            return  sb.toString();
+        }
+        sb.append("Search results:").append(System.lineSeparator());
+        for(T t : tasks){
+            sb.append(t.toString());
+        }
+        System.out.println(sb);
+        return sb.toString();
     }
 }

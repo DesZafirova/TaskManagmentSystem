@@ -1,7 +1,5 @@
 package utils;
 
-import java.security.PublicKey;
-
 import static utils.FormattingHelpers.RESET;
 import static utils.FormattingHelpers.colorCode;
 
@@ -58,4 +56,6 @@ public class TutorialMessages {
     public static final String LIST_ALL_TASKS_HELP_MSG = String.format("Would you like to add searching parameters for the task titles? [y / N] %n");
     public static final String LIST_FILTER_TASK_HELP_MSG = String.format("Please provide the following parameters separated by / %n%s%s%s%n", colorCode,
             "Filter parameter / Strict search [y / N] (optional)", RESET);
+    public static final String LIST_ASSIGNABLE_TASKS_HELP_MSG = String.format("Please provide the following parameters(N if you do not want to filter by this parameter) separated by / %n%s%s%s%n", colorCode,
+            "Status(optional {ACTIVE or DONE}) / Assignee Name (optional)", RESET);
 }

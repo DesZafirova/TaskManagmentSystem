@@ -8,10 +8,11 @@ public class ValidationHelpers {
     public static final String NO_SUCH_ENUM = "There is no %s in %s.";
 
     private static final String INVALID_NUMBER_OF_ARGUMENTS = "Invalid number of arguments. Expected: %d; received: %d.";
+    private static final String INVALID_RANGE_OF_ARGUMENTS = "Invalid number of arguments. Expected between: %d and %d, received %d.";
 
-    public static void validateIntRange(int value, int min, int max, String message) {
+    public static void validateIntRange(int value, int min, int max) {
         if (value < min || value > max) {
-            throw new IllegalArgumentException(message);
+            throw new IllegalArgumentException(INVALID_RANGE_OF_ARGUMENTS.formatted(min, max, value));
         }
     }
 

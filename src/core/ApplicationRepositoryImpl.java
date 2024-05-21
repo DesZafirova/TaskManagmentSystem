@@ -10,10 +10,12 @@ import model.contracts.Comment;
 import model.contracts.Member;
 import model.contracts.Team;
 import model.contracts.tasks.*;
+import model.contracts.utils.Assignable;
 import model.contracts.utils.Nameble;
 import model.tasks.BugImpl;
 import model.tasks.FeedbackImpl;
 import model.tasks.StoryImpl;
+import utils.FormattingHelpers;
 import utils.ParsingHelpers;
 import utils.ValidationHelpers;
 
@@ -369,7 +371,7 @@ public class ApplicationRepositoryImpl implements ApplicationRepository {
     @Override
     public List<Task> listAllTasks() {
         ArrayList<Task> task = new ArrayList<>(tasks.stream().sorted(Comparator.comparing(Task::getTitle)).toList());
-         printAllTasks(task);
+        printAllTasks(task);
         return task;
     }
 
@@ -398,7 +400,7 @@ public class ApplicationRepositoryImpl implements ApplicationRepository {
     @Override
     public void printAllTasks(List<Task> tasks) {
         StringBuilder sb = new StringBuilder();
-        if(tasks.isEmpty()){
+        if (tasks.isEmpty()) {
             System.out.println("No Tasks found.");
             return;
         }
@@ -406,6 +408,34 @@ public class ApplicationRepositoryImpl implements ApplicationRepository {
             sb.append(t.toString());
         }
         System.out.println(sb);
+    }
+
+    @Override
+    public <T extends AssignableTask> List<AssignableTask> listAllBugs(String status, String assigneeName) {
+
+        List<AssignableTask> bugs = tasks.stream().filter(b -> b.getRealName().equalsIgnoreCase("BUG")).map(b -> (AssignableTask) b).toList();
+        if (!status.equalsIgnoreCase("none")) {
+            bugs = bugs.stream().filter(b -> b.getStatus().name().equalsIgnoreCase(status)).toList();
+        }
+        if (assigneeName.equalsIgnoreCase("Unassigned")) {
+            bugs = bugs.stream().filter(b -> {
+                if (b.hasAssignee()) {
+                    return false;
+                }
+                return true;
+            }).toList();
+        } else if (!assigneeName.equalsIgnoreCase("none")) {
+            bugs = bugs.stream().filter(b -> {
+                if (b.hasAssignee()) {
+                    return b.getAssignee().getName().equalsIgnoreCase(assigneeName);
+                }
+                return false;
+            }).toList();
+        }
+
+
+        FormattingHelpers.printListTasks(bugs);
+        return bugs;
     }
 
 
