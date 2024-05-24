@@ -1,6 +1,8 @@
 package model.tasks;
 
+import model.contracts.tasks.Bug;
 import model.contracts.tasks.Feedback;
+import model.contracts.tasks.Task;
 import model.enums.Status;
 
 import utils.ValidationHelpers;
@@ -63,4 +65,15 @@ public class FeedbackImpl extends BaseTask implements Feedback {
                 .formatted(getID(), getRealName(), getStatus(), getRating(), getTitle());
 
     }
+
+    @Override
+    public int compareTo(Task o) {
+        Feedback compared = (Feedback) o;
+        int titleComparison = this.title.compareTo(compared.getTitle());
+        if (titleComparison != 0) {
+            return titleComparison;
+        }
+        return Integer.compare(compared.getRating(), rating);
+    }
 }
+

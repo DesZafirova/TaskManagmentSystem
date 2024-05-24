@@ -2,7 +2,9 @@ package model.tasks;
 
 import exceptions.TaskHasNoAssigneeException;
 import model.contracts.Member;
+import model.contracts.tasks.Bug;
 import model.contracts.tasks.Story;
+import model.contracts.tasks.Task;
 import model.enums.Priority;
 import model.enums.Status;
 import model.enums.StorySize;
@@ -105,5 +107,18 @@ public class StoryImpl extends BaseTask implements Story {
         return "ID#%d | Type: %s | Status: %s | Priority: %s | Size: %s | Assignee: %s%nTitle: %s%n%n"
                 .formatted(getID(), getRealName(), getStatus(), getPriority(), getSize(), assignee, getTitle());
 
+    }
+    @Override
+    public int compareTo(Task o) {
+        Story compared = (Story) o;
+        int titleComparison = this.title.compareTo(compared.getTitle());
+        if (titleComparison != 0) {
+            return titleComparison;
+        }
+        int priorityComparison = this.priority.compareTo(compared.getPriority());
+        if (priorityComparison != 0) {
+            return priorityComparison;
+        }
+        return this.size.compareTo(compared.getSize());
     }
 }

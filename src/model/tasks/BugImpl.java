@@ -3,6 +3,7 @@ package model.tasks;
 import exceptions.TaskHasNoAssigneeException;
 import jdk.jfr.Enabled;
 import model.contracts.Member;
+import model.contracts.tasks.AssignableTask;
 import model.contracts.tasks.Task;
 import model.contracts.utils.Assignable;
 import model.contracts.tasks.Bug;
@@ -15,6 +16,7 @@ import utils.ValidationHelpers;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.List;
 
 public class BugImpl extends BaseTask implements Bug, Assignable {
@@ -119,6 +121,24 @@ public class BugImpl extends BaseTask implements Bug, Assignable {
         }
         return this.assignee;
     }
+    public static Comparator<Bug> bugByTitlePrioritySeverity = Comparator
+            .comparing(Bug::getTitle)
+            .thenComparing(Bug::getPriority)
+            .thenComparing(Bug::getSeverity);
 
 
-}
+    @Override
+    public int compareTo(Task o) {
+        Bug compared = (Bug) o;
+        int titleComparison = this.title.compareTo(compared.getTitle());
+        if (titleComparison != 0) {
+            return titleComparison;
+        }
+        int priorityComparison = this.priority.compareTo(compared.getPriority());
+        if (priorityComparison != 0) {
+            return priorityComparison;
+        }
+        return this.severity.compareTo(compared.getSeverity());
+        }
+    }
+

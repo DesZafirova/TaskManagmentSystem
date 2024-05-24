@@ -182,7 +182,7 @@ public class ApplicationRepositoryImpl implements ApplicationRepository {
         }
         task = createTask(taskType, params);
         board.addTask(task);
-        if(assigned){
+        if (assigned) {
             member.addTask(task);
         }
         return task;
@@ -376,7 +376,6 @@ public class ApplicationRepositoryImpl implements ApplicationRepository {
 
         }
     }
-
     @Override
     public List<Task> listAllTasks() {
         ArrayList<Task> task = new ArrayList<>(tasks.stream().sorted(Comparator.comparing(Task::getTitle)).toList());
@@ -425,17 +424,12 @@ public class ApplicationRepositoryImpl implements ApplicationRepository {
         List<Story> stories = tasks.stream()
                 .filter(b -> b.getRealName().equalsIgnoreCase("STORY"))
                 .map(b -> (Story) b)
-                .toList();
+                .collect(Collectors.toCollection(ArrayList::new));
 
-       stories = filterByAssignee(assigneeName, filterByStatus(status, stories));
+        stories = filterByAssignee(assigneeName, filterByStatus(status, stories));
 
-        // TODO: 23.5.2024 г.
-        stories = stories.stream()
-                .sorted(Comparator.comparing(Story::getTitle)
-                        .thenComparing(Story::getPriority)
-                        .thenComparing(Story::getSize))
-                .toList();
-        stories.stream().toList().sort(null);
+
+        stories.sort(null);
         FormattingHelpers.printListTasks(stories);
         return stories;
     }
@@ -445,20 +439,17 @@ public class ApplicationRepositoryImpl implements ApplicationRepository {
         List<Feedback> feedbacks = tasks.stream()
                 .filter(b -> b.getRealName().equalsIgnoreCase("FEEDBACK"))
                 .map(b -> (Feedback) b)
-                .toList();
+                .collect(Collectors.toCollection(ArrayList::new));
         feedbacks = filterByStatus(status, feedbacks);
-        feedbacks = feedbacks.stream()
-                .sorted(Comparator.comparing(Feedback::getTitle)
-                        .thenComparing(Feedback::getRating))
-                .toList();
 
+        feedbacks.sort(null);
         FormattingHelpers.printListTasks(feedbacks);
         return feedbacks;
     }
 
     @Override
     public List<Task> listAllAssignableTasks(String status, String assigneeName) {
-       final List<Task> filtered = new ArrayList<>();
+        final List<Task> filtered = new ArrayList<>();
         for (Member m : members) {
             filtered.addAll(m.getTasks());
         }
@@ -466,7 +457,7 @@ public class ApplicationRepositoryImpl implements ApplicationRepository {
                 .map(t -> (AssignableTask) t)
                 .filter(Assignable::hasAssignee).toList();
 
-        assignable =filterByStatus(status, assignable);
+        assignable = filterByStatus(status, assignable);
         //TODO might include comparable
         assignable = assignable.stream()
                 .sorted(Comparator.comparing(AssignableTask::getTitle))
@@ -480,20 +471,18 @@ public class ApplicationRepositoryImpl implements ApplicationRepository {
     @Override
     public List<Bug> listAllBugs(String status, String assigneeName) {
         List<Bug> bugs = tasks.stream()
-            .filter(b -> b.getRealName().equalsIgnoreCase("BUG"))
-            .map(b -> (Bug) b)
-            .collect(Collectors.toCollection(ArrayList::new));
+                .filter(b -> b.getRealName().equalsIgnoreCase("BUG"))
+                .map(b -> (Bug) b)
+                .collect(Collectors.toCollection(ArrayList::new));
 
         bugs = filterByAssignee(assigneeName, filterByStatus(status, bugs));
 
         //TODO: COMPARE
-        bugs = bugs.stream().sorted().toList();
+        bugs.sort(null);
 
         FormattingHelpers.printListTasks(bugs);
         return bugs;
     }
-
-
 
 
     private static Feedback createFeedback(String[] params, int paramCount) {

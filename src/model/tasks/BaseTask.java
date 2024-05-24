@@ -25,7 +25,7 @@ public abstract class BaseTask implements Task, PrintableName {
     public static final String TASK_CREATED = "%s with ID:%d was created.%n";
 
     protected final int id;
-    private String title;
+    protected String title;
     private String description;
     protected Status status;
     protected List<Comment> comments;

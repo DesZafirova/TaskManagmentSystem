@@ -6,8 +6,10 @@ import model.contracts.utils.Identifiable;
 import model.enums.Status;
 import utils.contracts.PrintableName;
 
+import java.util.Comparator;
 
-public interface Task extends Identifiable, Commentable, Historical, PrintableName {
+
+public interface Task extends Identifiable, Commentable, Historical, PrintableName, Comparable<Task> {
 
     String getTitle();
 
