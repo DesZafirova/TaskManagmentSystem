@@ -10,7 +10,7 @@ import model.contracts.tasks.Bug;
 import model.enums.Priority;
 import model.enums.Status;
 import model.enums.BugSeverity;
-import utils.ParsingHelpers;
+
 import utils.ValidationHelpers;
 
 
@@ -121,11 +121,6 @@ public class BugImpl extends BaseTask implements Bug, Assignable {
         }
         return this.assignee;
     }
-    public static Comparator<Bug> bugByTitlePrioritySeverity = Comparator
-            .comparing(Bug::getTitle)
-            .thenComparing(Bug::getPriority)
-            .thenComparing(Bug::getSeverity);
-
 
     @Override
     public int compareTo(Task o) {
