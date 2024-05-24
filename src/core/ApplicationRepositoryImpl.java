@@ -52,7 +52,7 @@ public class ApplicationRepositoryImpl implements ApplicationRepository {
 
     @Override
     public Member createMember(String name) {
-        //TODO Try with stream;
+
         for (Member m : members) {
             if (m.getName().equalsIgnoreCase(name)) {
                 throw new EntityAlreadyExistException("Member", name);
@@ -133,7 +133,6 @@ public class ApplicationRepositoryImpl implements ApplicationRepository {
     public String showAllTeamMembers(String name) {
         Team team = findTeamByName(name);
         return team.showAllTeamMembers();
-        //// TODO: 20.5.2024 г.
     }
 
     @Override
@@ -196,27 +195,31 @@ public class ApplicationRepositoryImpl implements ApplicationRepository {
 
     @Override
     public String changeBugDetails(int id, String fieldName, String value) {
-        // TODO: Could Improve TASK DETAIL MUTATION
+
         Bug bug;
         try {
             bug = (Bug) findTaskById(id);
         } catch (ClassCastException ex) {
             throw new ProvidedTaskIsNotABugException(id);
         }
-        //todo Can implement change details inside the class.
+
         String result = "%s changed to %s for Bug with id: %d.%n";
-        if (fieldName.equalsIgnoreCase("Status")) {
-            bug.setStatus(value);
-            result = result.formatted("Status", value, id);
-        } else if (fieldName.equalsIgnoreCase("Priority")) {
-            bug.changePriority(value);
-            result = result.formatted("Priority", value, id);
-        } else if (fieldName.equalsIgnoreCase("Severity")) {
-            bug.changeSeverity(value);
-            result = result.formatted("Severity", value, id);
-        } else {
-            throw new InvalidFieldNameForBugException(fieldName, bug.getRealName());
-        }
+        result = switch (fieldName.toUpperCase()) {
+            case "STATUS" -> {
+                bug.setStatus(value);
+                yield result.formatted("Status", value, id);
+            }
+            case "PRIORITY" -> {
+                bug.changePriority(value);
+                yield result.formatted("Priority", value, id);
+            }
+            case "SEVERITY" -> {
+                bug.changeSeverity(value);
+                yield result.formatted("Severity", value, id);
+            }
+            default -> throw new InvalidFieldNameForBugException(fieldName, bug.getRealName());
+        };
+
         System.out.println(result);
         return result;
     }
@@ -231,24 +234,26 @@ public class ApplicationRepositoryImpl implements ApplicationRepository {
             throw new ProvidedTaskIsNotAFeedbackException(id);
         }
         //todo Can implement change details inside the class.
-        String result = "%s changed to %s for Feedback with id: %d.%n";
-        if (fieldName.equalsIgnoreCase("Status")) {
-            feedback.setStatus(value);
-            result = result.formatted("Status", value, id);
+        String resultFormat = "%s changed to %s for Feedback with id: %d.%n";
 
-        } else if (fieldName.equalsIgnoreCase("Rating")) {
-            feedback.changeRating(ParsingHelpers.tryParseInt(value));
-            result = result.formatted("Rating", value, id);
-        } else {
-            throw new InvalidFieldNameForFeedbackException(fieldName, feedback.getRealName());
-        }
+        String result = switch (fieldName.toUpperCase()) {
+            case "STATUS" -> {
+                feedback.setStatus(value);
+                yield String.format(resultFormat, "Status", value, id);
+            }
+            case "RATING" -> {
+                feedback.changeRating(ParsingHelpers.tryParseInt(value));
+                yield String.format(resultFormat, "Rating", value, id);
+            }
+            default -> throw new InvalidFieldNameForFeedbackException(fieldName, feedback.getRealName());
+        };
         System.out.println(result);
         return result;
     }
 
     @Override
     public String changeStoryDetails(int id, String fieldName, String value) {
-        // TODO: Could be Improve!
+
         Story story;
         try {
             story = (Story) findTaskById(id);
@@ -256,19 +261,23 @@ public class ApplicationRepositoryImpl implements ApplicationRepository {
             throw new ProvidedTaskIsNotAStoryException(id);
         }
         //todo Can implement change details inside the class.
-        String result = "%s changed to %s for Story with id: %d.%n";
-        if (fieldName.equalsIgnoreCase("Status")) {
-            story.setStatus(value);
-            result = result.formatted("Status", value, id);
-        } else if (fieldName.equalsIgnoreCase("Priority")) {
-            story.changePriority(value);
-            result = result.formatted("Priority", value, id);
-        } else if (fieldName.equalsIgnoreCase("Size")) {
-            story.changeSize(value);
-            result = result.formatted("Size", value, id);
-        } else {
-            throw new InvalidFieldNameForStoryException(fieldName, story.getRealName());
-        }
+        String resultFormat = "%s changed to %s for Story with id: %d.%n";
+        String result = switch (fieldName.toUpperCase()) {
+            case "STATUS" -> {
+                story.setStatus(value);
+                yield String.format(resultFormat, "Status", value, id);
+            }
+            case "PRIORITY" -> {
+                story.changePriority(value);
+                yield String.format(resultFormat, "Priority", value, id);
+            }
+            case "SIZE" -> {
+                story.changeSize(value);
+                yield String.format(resultFormat, "Size", value, id);
+            }
+            default -> throw new InvalidFieldNameForStoryException(fieldName, story.getRealName());
+        };
+
         System.out.println(result);
         return result;
     }
@@ -301,7 +310,6 @@ public class ApplicationRepositoryImpl implements ApplicationRepository {
 
     @Override
     public String addCommentToTask(int id, String content, String author) {
-        //// TODO: 19.5.2024 г. ask trainer
         ValidationHelpers.validateStringLength(content, CONTENT_LEN_MIN, CONTENT_LEN_MAX, CONTENT_LEN_ERR);
         Task task = findTaskById(id);
         Comment comment = new CommentImpl(author, content);
@@ -319,7 +327,6 @@ public class ApplicationRepositoryImpl implements ApplicationRepository {
 
     @Override
     public List<Nameble> findByName(String name) {
-//        //TODO Command not implemented with commandENUM
         StringBuilder sb = new StringBuilder();
         List<Nameble> nameableList = new ArrayList<>();
         filter(name, teams, nameableList, sb, "Teams");
@@ -376,6 +383,7 @@ public class ApplicationRepositoryImpl implements ApplicationRepository {
 
         }
     }
+
     @Override
     public List<Task> listAllTasks() {
         ArrayList<Task> task = new ArrayList<>(tasks.stream().sorted(Comparator.comparing(Task::getTitle)).toList());
@@ -458,7 +466,7 @@ public class ApplicationRepositoryImpl implements ApplicationRepository {
                 .filter(Assignable::hasAssignee).toList();
 
         assignable = filterByStatus(status, assignable);
-        //TODO might include comparable
+
         assignable = assignable.stream()
                 .sorted(Comparator.comparing(AssignableTask::getTitle))
                 .toList();
@@ -477,7 +485,6 @@ public class ApplicationRepositoryImpl implements ApplicationRepository {
 
         bugs = filterByAssignee(assigneeName, filterByStatus(status, bugs));
 
-        //TODO: COMPARE
         bugs.sort(null);
 
         FormattingHelpers.printListTasks(bugs);
@@ -493,7 +500,7 @@ public class ApplicationRepositoryImpl implements ApplicationRepository {
     }
 
     private Story createStory(String[] params, int paramCount) {
-        //TODO get realName()
+
         return switch (paramCount) {
             case 5 ->
                     StoryImpl.createStory(++id, params[0], params[1], findMemberByName(params[2]), params[3], params[4]);

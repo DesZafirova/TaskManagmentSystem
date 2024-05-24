@@ -129,10 +129,10 @@ public class TeamImpl implements Team, Nameble, PrintableName {
     @Override
     public String showBoards() {
         StringBuilder sb = new StringBuilder();
-        if(!boards.isEmpty()){
-
-            boards.forEach(b -> sb.append("| ").append(b.getName()).append(" | "));
-            return sb.toString();
+        if (!boards.isEmpty()) {
+            boards.forEach(b -> sb.append(b.getName()).append(", "));
+            sb.delete(sb.length() - 2, sb.length());
+        return sb.toString();
         }
         return "No Boards are created in team %s.%n".formatted(this.name);
     }
