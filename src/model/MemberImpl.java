@@ -15,6 +15,12 @@ public class MemberImpl extends EntityImpl implements Member{
         super(name);
     }
 
+
+    @Override
+    public void setName(String name) {
+        super.setName(name);
+    }
+
     @Override
     protected void validateName(String name) {
         ValidationHelpers.validateStringLength(name, NAME_MIN_LENGTH, NAME_MAX_LENGTH, NAME_ERROR_MESSAGE);
@@ -34,13 +40,4 @@ public class MemberImpl extends EntityImpl implements Member{
                 displayAllTasks(),
                 displayHistory());
     }
-    //    public static void main(String[] args) {
-//        Member member = new MemberImpl("Gosho");
-//        Task task = new FeedbackImpl(1, "Something title", 5, "some text bla bla bls", "NEW", member );
-//        Task task2 = new FeedbackImpl(1, "Something title2", 5, "some text bla bla bls2", "NEW", member );
-//
-//        member.addTask(task);
-//        member.addTask(task2);
-//        System.out.println(member.displayAllTasks());
-//    }
 }

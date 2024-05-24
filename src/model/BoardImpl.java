@@ -13,13 +13,14 @@ public class BoardImpl extends EntityImpl implements Board {
     private static final String NAME_ERROR_MESSAGE = String.format("Board name must be between %d and %d characters.",
             NAME_MIN_LENGTH, NAME_MAX_LENGTH);
 
-    private final Team team;
+    public final Team team;
 
     public BoardImpl(String name, Team team) {
         super(name);
         this.team = team;
 
     }
+
 
 
     @Override
@@ -33,5 +34,10 @@ public class BoardImpl extends EntityImpl implements Board {
         return """
                 Board: %s [Team: %s]
                 """.formatted(this.name, this.team.getName());
+    }
+
+    @Override
+    public Team getTeam() {
+        return this.team;
     }
 }

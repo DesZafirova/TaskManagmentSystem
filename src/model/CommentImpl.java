@@ -14,7 +14,6 @@ public class CommentImpl implements Comment {
             "Content must be between %d and %d characters long.",
             CONTENT_LEN_MIN,
             CONTENT_LEN_MAX);
-    //todo should author be a Member?
     private String author;
     private String content;
 

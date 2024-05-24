@@ -3,8 +3,11 @@ package model;
 
 import model.contracts.Entity;
 import model.contracts.tasks.Task;
+import org.junit.experimental.theories.suppliers.TestedOn;
+import org.junit.jupiter.api.Test;
 import utils.contracts.PrintableName;
 
+import javax.annotation.processing.Generated;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,8 +24,6 @@ public abstract class EntityImpl implements Entity, PrintableName {
         this.tasks = new ArrayList<>();
         this.activityHistory = new ActivityHistory();
     }
-
-
     public List<Task> getTasks() {
         return List.copyOf(tasks);
     }
@@ -33,33 +34,27 @@ public abstract class EntityImpl implements Entity, PrintableName {
 
     @Override
     public String getName() {
-        return this.name;
+        return name;
     }
 
-    private void setName(String name) {
+    public void setName(String name) {
         validateName(name);
         this.name = name;
     }
-
     protected abstract void validateName(String name);
-
-
     @Override
     public List<ActivityLog> getHistory() {
         return activityHistory.getHistory();
     }
-
     @Override
     public void addHistoryLog(String event) {
         activityHistory.addEventToHistory(event);
     }
-
     @Override
     public void addTask(Task task) {
         tasks.add(task);
         this.activityHistory.addEventToHistory("Task with ID: %d was added.".formatted(task.getID()));
     }
-
     @Override
     public void removeTask(Task task) {
         if (tasks.contains(task)) {
@@ -75,25 +70,21 @@ public abstract class EntityImpl implements Entity, PrintableName {
                 getRealName(),
                 this.name));
     }
-
     @Override
     public String displayAllTasks() {
         if(tasks.isEmpty()){
-            System.out.printf("Board %s is empty.%n", name);
-            return String.format("Board %s is empty.%n", name);
+            System.out.printf("%s %s is empty.%n",getRealName(), name);
+            return String.format("%s %s is empty.%n",getRealName(), name);
         }
         StringBuilder sb = new StringBuilder();
-
         tasks.forEach(t -> sb.append(t.toString()).append(System.lineSeparator()));
         System.out.print(sb);
         return sb.toString();
     }
-
     @Override
     public String displayHistory() {
         return activityHistory.listHistory();
-    }
-    @Override
+    }@Override
     public String toString() {
         return """
                 %s: %s

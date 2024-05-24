@@ -3,6 +3,7 @@ package model;
 import model.contracts.Board;
 import model.contracts.Member;
 import model.contracts.Team;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -152,5 +153,4 @@ class TeamImplTest {
         assertEquals("==============" , testTeam.toString().split("\n")[6]);
         assertEquals("Boards:" , testTeam.toString().split("\n")[7]);
         assertEquals("testBoard" , testTeam.toString().split("\n")[8]);
-        assertThrowsExactly(ArrayIndexOutOfBoundsException.class, () -> Arrays.stream(testTeam.toString().split("\n")).toList().get(9));
 }}

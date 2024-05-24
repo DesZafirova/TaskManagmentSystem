@@ -11,7 +11,7 @@ public class ActivityLog {
     private final LocalDateTime timestamp;
 
     public ActivityLog(String description) {
-        if (description.isEmpty()) {
+        if (description.isEmpty() || description.isBlank()) {
             throw new IllegalArgumentException(DESCRIPTION_CANNOT_BE_EMPTY);
         }
         this.description = description;
