@@ -15,17 +15,19 @@ import model.contracts.utils.Nameble;
 import model.tasks.BugImpl;
 import model.tasks.FeedbackImpl;
 import model.tasks.StoryImpl;
+import utils.FilterHelpers;
 import utils.FormattingHelpers;
 import utils.ParsingHelpers;
 import utils.ValidationHelpers;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
 import static model.CommentImpl.*;
+import static utils.FilterHelpers.filterByAssignee;
+import static utils.FilterHelpers.filterByStatus;
 
 public class ApplicationRepositoryImpl implements ApplicationRepository {
 
@@ -201,6 +203,7 @@ public class ApplicationRepositoryImpl implements ApplicationRepository {
         } catch (ClassCastException ex) {
             throw new ProvidedTaskIsNotABugException(id);
         }
+        //todo Can implement change details inside the class.
         String result = "%s changed to %s for Bug with id: %d.%n";
         if (fieldName.equalsIgnoreCase("Status")) {
             bug.setStatus(value);
@@ -227,6 +230,7 @@ public class ApplicationRepositoryImpl implements ApplicationRepository {
         } catch (ClassCastException ex) {
             throw new ProvidedTaskIsNotAFeedbackException(id);
         }
+        //todo Can implement change details inside the class.
         String result = "%s changed to %s for Feedback with id: %d.%n";
         if (fieldName.equalsIgnoreCase("Status")) {
             feedback.setStatus(value);
@@ -251,6 +255,7 @@ public class ApplicationRepositoryImpl implements ApplicationRepository {
         } catch (ClassCastException ex) {
             throw new ProvidedTaskIsNotAStoryException(id);
         }
+        //todo Can implement change details inside the class.
         String result = "%s changed to %s for Story with id: %d.%n";
         if (fieldName.equalsIgnoreCase("Status")) {
             story.setStatus(value);
@@ -414,33 +419,23 @@ public class ApplicationRepositoryImpl implements ApplicationRepository {
         System.out.println(sb);
     }
 
+
     @Override
     public List<Story> listAllStories(String status, String assigneeName) {
         List<Story> stories = tasks.stream()
                 .filter(b -> b.getRealName().equalsIgnoreCase("STORY"))
                 .map(b -> (Story) b)
                 .toList();
-        if (!status.equalsIgnoreCase("none")) {
-            stories = stories.stream().filter(b -> b.getStatus().name().equalsIgnoreCase(status)).toList();
-        }
-        if (assigneeName.equalsIgnoreCase("Unassigned")) {
-            stories = stories.stream().filter(b -> {
-                return !b.hasAssignee();
-            }).toList();
-        } else if (!assigneeName.equalsIgnoreCase("none")) {
-            stories = stories.stream().filter(b -> {
-                if (b.hasAssignee()) {
-                    return b.getAssignee().getName().equalsIgnoreCase(assigneeName);
-                }
-                return false;
-            }).toList();
-        }
+
+       stories = filterByAssignee(assigneeName, filterByStatus(status, stories));
+
+        // TODO: 23.5.2024 г.
         stories = stories.stream()
                 .sorted(Comparator.comparing(Story::getTitle)
                         .thenComparing(Story::getPriority)
                         .thenComparing(Story::getSize))
                 .toList();
-
+        stories.stream().toList().sort(null);
         FormattingHelpers.printListTasks(stories);
         return stories;
     }
@@ -451,9 +446,7 @@ public class ApplicationRepositoryImpl implements ApplicationRepository {
                 .filter(b -> b.getRealName().equalsIgnoreCase("FEEDBACK"))
                 .map(b -> (Feedback) b)
                 .toList();
-        if (!status.equalsIgnoreCase("none")) {
-            feedbacks = feedbacks.stream().filter(b -> b.getStatus().name().equalsIgnoreCase(status)).toList();
-        }
+        feedbacks = filterByStatus(status, feedbacks);
         feedbacks = feedbacks.stream()
                 .sorted(Comparator.comparing(Feedback::getTitle)
                         .thenComparing(Feedback::getRating))
@@ -472,12 +465,9 @@ public class ApplicationRepositoryImpl implements ApplicationRepository {
         List<AssignableTask> assignable = filtered.stream()
                 .map(t -> (AssignableTask) t)
                 .filter(Assignable::hasAssignee).toList();
-        if (!status.equalsIgnoreCase("none")) {
-            assignable = assignable.stream().filter(b -> b.getStatus().name().equalsIgnoreCase(status)).toList();
-        }
-        if (!assigneeName.equalsIgnoreCase("none")) {
-            assignable = assignable.stream().filter(t -> t.getAssignee().getName().equalsIgnoreCase(assigneeName)).toList();
-        }
+
+        assignable =filterByStatus(status, assignable);
+        //TODO might include comparable
         assignable = assignable.stream()
                 .sorted(Comparator.comparing(AssignableTask::getTitle))
                 .toList();
@@ -490,36 +480,21 @@ public class ApplicationRepositoryImpl implements ApplicationRepository {
     @Override
     public List<Bug> listAllBugs(String status, String assigneeName) {
         List<Bug> bugs = tasks.stream()
-                .filter(b -> b.getRealName().equalsIgnoreCase("BUG"))
-                .map(b -> (Bug) b)
-                .toList();
-        if (!status.equalsIgnoreCase("none")) {
-            bugs = bugs.stream().filter(b -> b.getStatus().name().equalsIgnoreCase(status)).toList();
-        }
-        if (assigneeName.equalsIgnoreCase("Unassigned")) {
-            bugs = bugs.stream().filter(b -> {
-                if (b.hasAssignee()) {
-                    return false;
-                }
-                return true;
-            }).toList();
-        } else if (!assigneeName.equalsIgnoreCase("none")) {
-            bugs = bugs.stream().filter(b -> {
-                if (b.hasAssignee()) {
-                    return b.getAssignee().getName().equalsIgnoreCase(assigneeName);
-                }
-                return false;
-            }).toList();
-        }
-        bugs = bugs.stream()
-                .sorted(Comparator.comparing(Bug::getTitle)
-                        .thenComparing(Bug::getPriority)
-                        .thenComparing(Bug::getSeverity))
-                .toList();
+            .filter(b -> b.getRealName().equalsIgnoreCase("BUG"))
+            .map(b -> (Bug) b)
+            .collect(Collectors.toCollection(ArrayList::new));
+
+        bugs = filterByAssignee(assigneeName, filterByStatus(status, bugs));
+
+        //TODO: COMPARE
+        bugs = bugs.stream().sorted().toList();
 
         FormattingHelpers.printListTasks(bugs);
         return bugs;
     }
+
+
+
 
     private static Feedback createFeedback(String[] params, int paramCount) {
         if (paramCount != 3) throw new InvalidParameterCountForTaskCreation("Feedback");
