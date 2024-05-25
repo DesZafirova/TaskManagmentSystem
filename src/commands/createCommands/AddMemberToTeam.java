@@ -22,7 +22,7 @@ public class AddMemberToTeam extends BaseCommand {
         if(EngineImpl.tutorialMode){
             System.out.println(ADD_TEAM_MEMBER_HELP_MSG);
         }
-        List<String> params = extractParameters();
+        List<String> params = extractParameters(EngineImpl.sc.nextLine());
         ValidationHelpers.validateArgumentsCount(params, VALID_PARAM_COUNT);
         String memberName = params.get(0);
         String teamName = params.get(1);

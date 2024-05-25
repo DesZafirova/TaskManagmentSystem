@@ -21,7 +21,7 @@ public class ShowAllTeamMembers extends BaseCommand {
         if(EngineImpl.tutorialMode){
             System.out.println(SHOW_TEAM_INFO_HELP_MSG);
         }
-        List<String> params = extractParameters();
+        List<String> params = extractParameters(EngineImpl.sc.nextLine());
         ValidationHelpers.validateArgumentsCount(params, VALID_ARGS_COUNT);
         String teamName = params.get(0);
         app.showAllTeamMembers(teamName);

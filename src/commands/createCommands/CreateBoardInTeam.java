@@ -22,7 +22,7 @@ public class CreateBoardInTeam extends BaseCommand {
         if(EngineImpl.tutorialMode){
             System.out.println(CREATE_BRD_HELP_MSG);
         }
-        List<String> params = extractParameters();
+        List<String> params = extractParameters(EngineImpl.sc.nextLine());
         ValidationHelpers.validateArgumentsCount(params, VALID_PARAM_COUNT);
         String boardName = params.get(0);
         String teamName = params.get(1);

@@ -16,11 +16,8 @@ public abstract class BaseCommand implements Command {
     }
 
 
-    protected List<String> extractParameters() {
-        String str = EngineImpl.sc.nextLine();
-        List<String> params = Arrays.stream(str.split(" / ")).toList();
-        //// TODO: 19.5.2024 г. remove
-        System.out.println(params);
+    public List<String> extractParameters(String input) {
+        List<String> params = Arrays.stream(input.split(" / ")).toList();
         return params;
     }
 }

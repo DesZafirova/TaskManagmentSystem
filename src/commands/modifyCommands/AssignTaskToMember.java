@@ -25,7 +25,7 @@ public class AssignTaskToMember extends BaseCommand {
         if (EngineImpl.tutorialMode) {
             System.out.println(ASSIGN_TASK_TO_MEMBER_HELP_MSG);
         }
-        List<String> params = extractParameters();
+        List<String> params = extractParameters(EngineImpl.sc.nextLine());
         ValidationHelpers.validateArgumentsCount(params, VALID_PARAMETERS_COUNT);
         int taskId = ParsingHelpers.tryParseInt(params.get(0));
         try {

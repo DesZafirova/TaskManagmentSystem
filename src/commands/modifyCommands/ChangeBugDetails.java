@@ -22,7 +22,8 @@ public class ChangeBugDetails extends BaseCommand {
         if(EngineImpl.tutorialMode){
             System.out.println(CHANGE_BUG_DETAILS_HELP_MSG);
         }
-        List<String> params = extractParameters();
+        List<String> params = extractParameters(EngineImpl.sc.nextLine());
+
         ValidationHelpers.validateArgumentsCount(params, VALID_PARAMETERS_COUNT);
         int taskId = ParsingHelpers.tryParseInt(params.get(0));
         String fieldName = params.get(1);

@@ -26,7 +26,7 @@ public class ListAllTasks extends BaseCommand {
         if (answer.equalsIgnoreCase("Y")) {
 
             System.out.println(LIST_FILTER_TASK_HELP_MSG);
-            List<String> params = extractParameters();
+            List<String> params = extractParameters(EngineImpl.sc.nextLine());
             ValidationHelpers.validateArgumentsCount(params, VALID_PARAM_COUNT);
             String queryParam = params.get(0);
             boolean strictSearch = false;

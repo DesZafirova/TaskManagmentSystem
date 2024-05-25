@@ -24,7 +24,7 @@ public class ShowBoardActivities extends BaseCommand {
         if(EngineImpl.tutorialMode){
             System.out.println(SHOW_BRD_ACTIVITIES_HELP_MSG);
         }
-        List<String> params = extractParameters();
+        List<String> params = extractParameters(EngineImpl.sc.nextLine());
         ValidationHelpers.validateArgumentsCount(params, VALID_ARGS_COUNT);
         String teamName = params.get(0);
         String boardName = params.get(1);

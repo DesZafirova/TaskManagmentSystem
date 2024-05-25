@@ -25,7 +25,7 @@ public class CreateTaskInBoard extends BaseCommand {
         if(EngineImpl.tutorialMode){
             System.out.println(CREATE_TASK_IN_BRD_HELP_MSG);
         }
-        List<String> params = extractParameters();
+        List<String> params = extractParameters(EngineImpl.sc.nextLine());
         ValidationHelpers.validateArgumentsCount(params, VALID_ARGUMENT_COUNT);
         String taskType = params.get(0);
         String boardName = params.get(1);

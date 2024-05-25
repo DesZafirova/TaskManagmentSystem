@@ -1,6 +1,7 @@
 package core;
 
 import exceptions.*;
+import model.MemberImpl;
 import model.contracts.Board;
 import model.contracts.Member;
 import model.contracts.Team;
@@ -133,8 +134,7 @@ class ApplicationRepositoryImplTest {
 
     @Test
     void createNewTaskInBoard() {
-
-        Task task = app.createNewTaskInBoard(
+              Task task = app.createNewTaskInBoard(
                 "Feedback",
                 board.getName(),
                 testTeam.getName(),

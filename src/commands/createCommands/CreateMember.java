@@ -29,7 +29,7 @@ public class CreateMember extends BaseCommand {
         if(EngineImpl.tutorialMode){
             System.out.println(CREATE_MEMBER_HELP_MSG);
         }
-        List<String> params = extractParameters();
+        List<String> params = extractParameters(EngineImpl.sc.nextLine());
         ValidationHelpers.validateArgumentsCount(params, VALID_ARGUMENTS_COUNT);
         String memberName = params.get(0);
         app.createMember(memberName);

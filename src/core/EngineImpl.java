@@ -48,9 +48,10 @@ public class EngineImpl implements Engine {
         }
     }
 
-    private void processCommand(String inputLine) {
+    public Command processCommand(String inputLine) {
         String command = inputLine.trim();
         Command cmd = commandController.createCommandFromCommandName(command, app);
         cmd.execute();
+        return cmd;
     }
 }

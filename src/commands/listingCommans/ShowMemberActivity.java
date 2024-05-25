@@ -21,7 +21,7 @@ public class ShowMemberActivity extends BaseCommand {
         if(EngineImpl.tutorialMode){
             System.out.println(SHOW_MEMBER_ACTIVITIES_HELP_MSG);
         }
-        List<String> params = extractParameters();
+        List<String> params = extractParameters(EngineImpl.sc.nextLine());
         ValidationHelpers.validateArgumentsCount(params, VALID_ARGS_COUNT);
         String memberName = params.get(0);
         app.showMemberActivities(memberName);

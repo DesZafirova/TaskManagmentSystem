@@ -174,7 +174,7 @@ public class ApplicationRepositoryImpl implements ApplicationRepository {
             member = findMemberByName(params[2]);
             if (!(team.getMembers().contains(member) && team.getBoards().contains(board))) {
 
-                throw new MemberAndBoardAreInDifferentTeamsException(
+                throw new IllegalArgumentException(
                         ASSIGNEE_NOT_IN_TEAM_AS_BOARD.formatted(member.getName(), board.getName()));
             }
 

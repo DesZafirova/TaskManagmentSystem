@@ -30,13 +30,6 @@ public class ValidationHelpers {
         }
     }
 
-    public static void validatePattern(String value, String pattern, String message) {
-        Pattern patternToMatch = Pattern.compile(pattern, Pattern.CASE_INSENSITIVE);
-        Matcher matcher = patternToMatch.matcher(value);
-        if (!matcher.matches()) {
-            throw new IllegalArgumentException(message);
-        }
-    }
     public static void validateStringLength(String stringToValidate, int minLength, int maxLength, String errorMessage) {
         validateValue(stringToValidate.length(), minLength, maxLength, errorMessage);
     }

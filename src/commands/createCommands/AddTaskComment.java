@@ -25,7 +25,7 @@ public class AddTaskComment extends BaseCommand {
         if (EngineImpl.tutorialMode){
             System.out.println(ADD_COMMENT_TO_TASK_HELP_MSG);
         }
-        List<String> params = extractParameters();
+        List<String> params = extractParameters(EngineImpl.sc.nextLine());
         ValidationHelpers.validateArgumentsCount(params, VALID_ARGS_COUNT);
         int taskId = ParsingHelpers.tryParseInt(params.get(0));
         String content = params.get(1);

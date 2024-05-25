@@ -21,7 +21,7 @@ public class ListBugs extends BaseCommand {
         if(EngineImpl.tutorialMode){
             System.out.println(LIST_ASSIGNABLE_TASKS_HELP_MSG);
         }
-        List<String> params = extractParameters();
+        List<String> params = extractParameters(EngineImpl.sc.nextLine());
         ValidationHelpers.validateArgumentsCount(params, VALID_PARAMS_COUNT);
         String status = (params.get(0).equalsIgnoreCase("n")) ? "none" : params.get(0);
         String assigneeName = (params.get(1).equalsIgnoreCase("n")) ? "none" : params.get(1);

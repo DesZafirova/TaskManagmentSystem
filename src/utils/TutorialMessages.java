@@ -4,13 +4,16 @@ import static utils.FormattingHelpers.RESET;
 import static utils.FormattingHelpers.colorCode;
 
 public class TutorialMessages {
-    public static void printTaskHelpMsg(String taskType) {
+    public static String printTaskHelpMsg(String taskType) {
         if (taskType.equalsIgnoreCase("Bug")) {
             System.out.printf("Bug params: %s%s%s%n", colorCode, " Title(10-100) / Description(10-500) / Member assigned(optional) / Priority(High, Medium or Low) / Severity(Critical, Major or Minor) / Steps to reproduce(comma separated)", RESET);
+        return String.format("Bug params: %s%s%s%n", colorCode, " Title(10-100) / Description(10-500) / Member assigned(optional) / Priority(High, Medium or Low) / Severity(Critical, Major or Minor) / Steps to reproduce(comma separated)", RESET);
         } else if (taskType.equalsIgnoreCase("Story")) {
             System.out.printf("Story params: %s%s%s%n", colorCode, "Title(10-100) / Description(10-500) / Member assigned(optional) / Priority(High, Medium or Low) / Size(Large, Medium or Small)", RESET);
+        return String.format("Story params: %s%s%s%n", colorCode, "Title(10-100) / Description(10-500) / Member assigned(optional) / Priority(High, Medium or Low) / Size(Large, Medium or Small)", RESET);
         } else if (taskType.equalsIgnoreCase("Feedback")) {
             System.out.printf("Feedback params: %s%s%s%n", colorCode, "Title(10-100) / Description(10-500) / Rating(Number from 1 to 10)", RESET);
+        return String.format("Feedback params: %s%s%s%n", colorCode, "Title(10-100) / Description(10-500) / Rating(Number from 1 to 10)", RESET);
         } else {
             throw new IllegalArgumentException("%s is not a valid Task type.".formatted(taskType));
         }
@@ -53,6 +56,8 @@ public class TutorialMessages {
             "Existing Team Name /  Board Name", RESET);
     public static final String SHOW_MEMBER_ACTIVITIES_HELP_MSG = String.format("In order to show member activities, you need to provide the following parameters %n%s%s%s%n", colorCode,
             "Existing Member Name", RESET);
+    public static final String SHOW_TEAM_ACTIVITIES_HELP_MSG = String.format("In order to show team activities, you need to provide the following parameters %n%s%s%s%n", colorCode,
+            "Existing Team Name", RESET);
 
     public static final String LIST_ALL_TASKS_HELP_MSG = String.format("Would you like to add searching parameters for the task titles? [y / N] %n");
     public static final String LIST_FILTER_TASK_HELP_MSG = String.format("Please provide the following parameters separated by / %n%s%s%s%n", colorCode,
