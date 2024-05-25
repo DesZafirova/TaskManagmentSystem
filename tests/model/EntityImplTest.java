@@ -1,5 +1,6 @@
 package model;
 
+import core.EngineImpl;
 import model.contracts.tasks.Task;
 import model.tasks.StoryImpl;
 import org.junit.jupiter.api.BeforeEach;
@@ -100,6 +101,12 @@ class EntityImplTest {
     void displayHistory() {
         assertNotNull(entity.displayHistory());
         assertEquals(1, entity.displayHistory().split("%s".formatted(System.lineSeparator())).length);
+    }
+
+    @Test
+    void testValidateName() {
+        EntityImpl testEntity = new MemberImpl("validd");
+        assertNotNull(testEntity);
     }
 
     @Test

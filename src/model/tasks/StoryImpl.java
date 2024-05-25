@@ -30,7 +30,7 @@ public class StoryImpl extends BaseTask implements Story {
 
     }
 
-    public static Story createStory(int i, String title, String description, Member assignee, String priority, String size) {
+    public static StoryImpl createStory(int i, String title, String description, Member assignee, String priority, String size) {
         validateTitle(title);
         validateDescription(description);
         ValidationHelpers.validateEnum(priority, Priority.class);
@@ -40,7 +40,7 @@ public class StoryImpl extends BaseTask implements Story {
         return story;
     }
 
-    public static Story createStory(int i, String title, String description, String priority, String size) {
+    public static StoryImpl createStory(int i, String title, String description, String priority, String size) {
         return createStory(i, title, description, null, priority, size);
     }
 

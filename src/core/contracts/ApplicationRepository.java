@@ -66,7 +66,7 @@ public interface ApplicationRepository {
 
     List<Task> listAllTasks();
     List<Task> listAllTasks(String filterParam, boolean strictSearch);
-    void printAllTasks(List<Task> tasks);
+    String printAllTasks(List<Task> tasks);
     List<Bug> listAllBugs(String status, String assigneeName);
 
     List<Story> listAllStories(String status, String assigneeName);

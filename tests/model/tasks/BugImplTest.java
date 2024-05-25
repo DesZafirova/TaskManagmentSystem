@@ -35,13 +35,10 @@ class BugImplTest {
 
     @Test
     void createBug() {
+        Task newBug = BugImpl.createBug(1, VALID_TITLE_LENGTH, VALID_DESCRIPTION_LENGTH, "HIGH", "MAJOR", "step, step2, step3");
+        assertNotNull(newBug);
 
     }
-
-    @Test
-    void testCreateBug() {
-    }
-
     @Test
     void getPriority() {
         Priority result = task.getPriority();
@@ -152,7 +149,7 @@ class BugImplTest {
                 () -> assertEquals(-1, bug1.compareTo(bug5)),
                 () -> assertEquals(1, bug5.compareTo(bug1)),
                 () -> assertEquals(0, bug1.compareTo(bug6))
-                );
+        );
 
     }
 

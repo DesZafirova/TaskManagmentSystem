@@ -3,11 +3,7 @@ package model;
 
 import model.contracts.Entity;
 import model.contracts.tasks.Task;
-import org.junit.experimental.theories.suppliers.TestedOn;
-import org.junit.jupiter.api.Test;
 import utils.contracts.PrintableName;
-
-import javax.annotation.processing.Generated;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -52,6 +48,9 @@ public abstract class EntityImpl implements Entity, PrintableName {
     }
     @Override
     public void addTask(Task task) {
+        if (tasks.contains(task)) {
+            throw new IllegalArgumentException("Provided task is already added to the task list.");
+        }
         tasks.add(task);
         this.activityHistory.addEventToHistory("Task with ID: %d was added.".formatted(task.getID()));
     }

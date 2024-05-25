@@ -25,7 +25,7 @@ public class EngineImpl implements Engine {
 
     @Override
     public void run() {
-//        welcome();
+        welcome();
         Scanner scanner = new Scanner(System.in);
         while (true) {
             try {

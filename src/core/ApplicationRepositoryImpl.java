@@ -414,16 +414,17 @@ public class ApplicationRepositoryImpl implements ApplicationRepository {
     }
 
     @Override
-    public void printAllTasks(List<Task> tasks) {
+    public String printAllTasks(List<Task> tasks) {
         StringBuilder sb = new StringBuilder();
         if (tasks.isEmpty()) {
             System.out.println("No Tasks found.");
-            return;
+            return "No Tasks found.";
         }
         for (Task t : tasks) {
             sb.append(t.toString());
         }
         System.out.println(sb);
+        return sb.toString();
     }
 
 
